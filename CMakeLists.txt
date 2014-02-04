@@ -44,16 +44,14 @@ IF(BUILD_TEST)
 ENDIF()
 
 
-##############################################################################
-# Get full library name
-GET_TARGET_PROPERTY( FULL_LIBRARY_NAME ${PROJECT_NAME} LOCATION )
-SET( Fast_LIBRARIES ${PROJECT_NAME} ${FULL_LIBRARY_NAME} )
-SET( Fast_LIBRARY_DIR ${PROJECT_BINARY_DIR} )
-
 ################################################################################
-# Create the SophusConfig.cmake file for other cmake projects.
-CONFIGURE_FILE( ${CMAKE_CURRENT_SOURCE_DIR}/FastConfig.cmake.in
-    ${CMAKE_CURRENT_BINARY_DIR}/FastConfig.cmake @ONLY IMMEDIATE )
+# Create the fastConfig.cmake file for other cmake projects.
+GET_TARGET_PROPERTY( FULL_LIBRARY_NAME ${PROJECT_NAME} LOCATION )
+SET(fast_LIBRARIES ${FULL_LIBRARY_NAME} )
+SET(fast_LIBRARY_DIR ${PROJECT_BINARY_DIR} )
+SET(fast_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/include")
+CONFIGURE_FILE( ${CMAKE_CURRENT_SOURCE_DIR}/fastConfig.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/fastConfig.cmake @ONLY IMMEDIATE )
 export( PACKAGE fast )
 
 INSTALL(DIRECTORY include/fast DESTINATION ${CMAKE_INSTALL_PREFIX}/include FILES_MATCHING PATTERN "*.h" )

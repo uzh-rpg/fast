@@ -1,7 +1,15 @@
 #######################################
 # user config
 
-SET(IS_ARM FALSE)
+# Based on the ARM_ARCHITECTURE environment variable
+# Set IS_ARM to build on the Odroid board
+IF(DEFINED ENV{ARM_ARCHITECTURE})
+  MESSAGE("ARM_ARCHITECTURE environment variable set to " $ENV{ARM_ARCHITECTURE})
+  SET(IS_ARM TRUE)
+ELSE()
+  SET(IS_ARM FALSE)
+ENDIF()
+
 SET(BUILD_TEST TRUE)
 
 #######################################
@@ -25,7 +33,7 @@ SET(SOURCES  ${PROJECT_SOURCE_DIR}/src/fast_10.cpp
              ${PROJECT_SOURCE_DIR}/src/fast_10_score.cpp
              ${PROJECT_SOURCE_DIR}/src/nonmax_3x3.cpp)
 IF(IS_ARM)
-  LIST(APPEND SOURCES ${PROJECT_SOURCE_DIR}/src/faster_corner_9_neon.cpp)
+#  LIST(APPEND SOURCES ${PROJECT_SOURCE_DIR}/src/faster_corner_9_neon.cpp)
 ELSE()
   LIST(APPEND SOURCES ${PROJECT_SOURCE_DIR}/src/faster_corner_10_sse.cpp)
 ENDIF()

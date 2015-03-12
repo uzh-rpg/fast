@@ -23,18 +23,18 @@ int main (int argc, char * argv[]) {
    printf("PLAIN took %f ms (average over %d trials).\n", time_accumulator/((double)n_trials)*1000.0, n_trials );
    printf("PLAIN version extracted %zu features.\n", corners.size());
 
-#if __NEON__
-   printf("\nTesting NEON version\n");
-   time_accumulator = 0;
-   for (int i = 0; i < n_trials; ++i) {
-     corners.clear();
-      double t = (double)cv::getTickCount();
-      fast::fast_corner_detect_9_neon((fast::fast_byte *)(img.data), img.cols, img.rows, img.cols, 75, corners);
-      time_accumulator +=  ((cv::getTickCount() - t) / cv::getTickFrequency());
-   }
-   printf("NEON version took %f ms (average over %d trials).\n", time_accumulator/((double)n_trials)*1000.0, n_trials);
-   printf("NEON version extracted %zu features.\n", corners.size());
-#endif
+// #if __NEON__
+//    printf("\nTesting NEON version\n");
+//    time_accumulator = 0;
+//    for (int i = 0; i < n_trials; ++i) {
+//      corners.clear();
+//       double t = (double)cv::getTickCount();
+//       fast::fast_corner_detect_9_neon((fast::fast_byte *)(img.data), img.cols, img.rows, img.cols, 75, corners);
+//       time_accumulator +=  ((cv::getTickCount() - t) / cv::getTickFrequency());
+//    }
+//    printf("NEON version took %f ms (average over %d trials).\n", time_accumulator/((double)n_trials)*1000.0, n_trials);
+//    printf("NEON version extracted %zu features.\n", corners.size());
+// #endif
    
 #if __SSE2__
    printf("\nTesting SSE2 version\n");
